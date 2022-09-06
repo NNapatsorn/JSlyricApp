@@ -41,12 +41,12 @@ showData = (songs) => {
               .join("")}
         </ul>
     `;
-  // console.log(songs);
-  if (songs.next || songs.previous) {
+  console.log(songs);
+  if (songs.next || songs.prev) {
     more.innerHTML = `
     ${
-      songs.previous
-        ? `<button class="btn" onclick="getMoreSongs('${songs.previous}')">Previous</button>`
+      songs.prev
+        ? `<button class="btn" onclick="getMoreSongs('${songs.prev}')">Previous</button>`
         : ""
     }
     ${
@@ -82,7 +82,7 @@ getLyrics = async (artist, songName) => {
   const respond = await fetch(`${apiUrl}/v1/${artist}/${songName}`);
   const data = await respond.json();
   const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, "<br>");
-
+  console.log(data);
   if (lyrics) {
     result.innerHTML = `
     <h2><span>
