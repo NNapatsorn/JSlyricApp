@@ -69,9 +69,10 @@ getMoreSongs = async (songsUrl) => {
 };
 
 result.addEventListener("click", (e) => {
+  console.log(e);
   const clickEL = e.target;
 
-  if (clickEL.tagname == "BUTTON") {
+  if (clickEL.tagName == "BUTTON") {
     const artist = clickEL.getAttribute("data-artist");
     const songName = clickEL.getAttribute("data-song");
     getLyrics(artist, songName);
@@ -81,7 +82,8 @@ result.addEventListener("click", (e) => {
 getLyrics = async (artist, songName) => {
   const respond = await fetch(`${apiUrl}/v1/${artist}/${songName}`);
   const data = await respond.json();
-  const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, "<br>");
+  // const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, "<br>");
+  const lyrics = data.lyrics;
   console.log(data);
   if (lyrics) {
     result.innerHTML = `
@@ -98,6 +100,5 @@ getLyrics = async (artist, songName) => {
     <span>No Lyric for this song</span>
   `;
   }
+  more.innerHTML = "";
 };
-
-more.innerHTML = "";
